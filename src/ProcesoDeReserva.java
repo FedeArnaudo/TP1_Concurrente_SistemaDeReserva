@@ -8,13 +8,12 @@ public class ProcesoDeReserva implements Runnable{
 
     @Override
     public void run() {
-        while (vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() >= 0){
+        while (vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() > 0){
             Asiento asiento = vuelo.getMatrizDeAsientos().getAsientoRandom();
-            asiento.setIdThread(Thread.currentThread().getName());
-            if(asiento.getIdThread() != null && asiento.getIdThread().equals(Thread.currentThread().getName()) && asiento.getEstado().equals(ESTADO.LIBRE)){
+            if(asiento.getEstado().equals(ESTADO.LIBRE)){
                 reservar(asiento);
-                asiento.setIdThread(Thread.currentThread().getName());
-                System.out.println("Asiento número: " + asiento.getNumeroAsiento());
+                vuelo.getMatrizDeAsientos().decrementarCantidadDeAsientosLibres();
+                //System.out.println("Asiento número: " + asiento.getNumeroAsiento());
             }
         }
         /*int i = 0;
@@ -50,7 +49,8 @@ public class ProcesoDeReserva implements Runnable{
         }*/
     }
     public void reservar(Asiento asiento){
-        vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento, TIPO_DE_RESERVA.PENDIENTE_DE_PAGO));
         asiento.setEstado(ESTADO.OCUPADO);
+        vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento));
+        System.out.println("Reservas pendientes de pago: " + vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize());
     }
 }

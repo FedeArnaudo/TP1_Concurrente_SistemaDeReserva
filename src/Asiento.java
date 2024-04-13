@@ -9,11 +9,11 @@ public class Asiento {
         this.estado = estado;
     }
 
-    public ESTADO getEstado() {
+    public synchronized ESTADO getEstado() {
         return estado;
     }
 
-    public void setEstado(ESTADO estado) {
+    public synchronized void setEstado(ESTADO estado) {
         this.estado = estado;
     }
 
@@ -27,15 +27,5 @@ public class Asiento {
 
     public String getIdThread() {
         return idThread;
-    }
-
-    public synchronized void setIdThread(String idThread) {
-        if(getIdThread() == null){
-            this.idThread = idThread;
-        }
-        else if(getIdThread().equals(idThread)){
-            this.idThread = null;
-        }
-
     }
 }

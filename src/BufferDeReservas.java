@@ -17,13 +17,22 @@ public class BufferDeReservas {
     }
 
     public Reserva getReserva() {
-        int index = random.nextInt(reservas.size());
-        return reservas.get(index);
+        synchronized (this) {
+            if (!reservas.isEmpty()) {
+                return reservas.get(random.nextInt(reservas.size()));
+            } else {
+                return null;
+            }
+        }
     }
 
-    public void deleteReserva(Reserva reserva) {
+    public boolean deleteReserva(Reserva reserva) {
         synchronized (this) {
-            reservas.remove(reserva);
+            return reservas.remove(reserva);
         }
+    }
+
+    public int getSize() {
+        return reservas.size();
     }
 }

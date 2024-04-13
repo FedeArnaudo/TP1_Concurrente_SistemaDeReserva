@@ -30,12 +30,14 @@ public class MatrizDeAsientos {
         return matrizDeAsientos;
     }
 
-    public synchronized Asiento getAsientoRandom(){
+    public Asiento getAsientoRandom(){
         int i = random.nextInt(CANTIDAD_DE_FILAS);
         int j = random.nextInt(CANTIDAD_DE_COLUMNAS);
-        cantidadDeAsientosLibres--;
         return matrizDeAsientos[i][j];
+    }
 
+    public void decrementarCantidadDeAsientosLibres(){
+        cantidadDeAsientosLibres--;
     }
 
     public int getCantidadDeAsientosLibres(){

@@ -1,8 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        MatrizDeAsientos matrizDeAsientos = new MatrizDeAsientos();
-        RegistroDeReservas registroDeReservas = new RegistroDeReservas();
-        Vuelo vuelo = new Vuelo(matrizDeAsientos, registroDeReservas);
+        Vuelo vuelo = new Vuelo();
 
         ProcesoDeReserva procesoDeReserva = new ProcesoDeReserva(vuelo);
         ProcesoDePago procesoDePago = new ProcesoDePago(vuelo);
@@ -16,19 +14,28 @@ public class Main {
         Thread thread1 = new Thread(procesoDeReserva, "Thread 1-1");
         Thread thread2 = new Thread(procesoDeReserva, "Thread 1-2");
         Thread thread3 = new Thread(procesoDeReserva, "Thread 1-3");
+        Thread thread21 = new Thread(procesoDePago, "Thread 2-1");
+        Thread thread22 = new Thread(procesoDePago, "Thread 2-2");
 
         thread1.start();
         thread2.start();
         thread3.start();
 
+
+
+
+        thread21.start();
+        thread22.start();
+
         try {
             thread1.join();
             thread2.join();
             thread3.join();
+            thread21.join();
+            thread22.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /*

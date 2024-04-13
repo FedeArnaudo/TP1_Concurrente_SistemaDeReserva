@@ -1,9 +1,9 @@
 public class Vuelo {
     private MatrizDeAsientos matrizDeAsientos;
     private RegistroDeReservas registroDeReservas;
-    public Vuelo(MatrizDeAsientos matrizDeAsientos, RegistroDeReservas registroDeReservas){
-        this.matrizDeAsientos = matrizDeAsientos;
-        this.registroDeReservas = registroDeReservas;
+    public Vuelo(){
+        this.matrizDeAsientos = new MatrizDeAsientos();
+        this.registroDeReservas = new RegistroDeReservas();
     }
 
     public MatrizDeAsientos getMatrizDeAsientos() {
