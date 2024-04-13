@@ -1,0 +1,6 @@
+public enum REGISTRO {
+    PENDIENTE_DE_PAGO,
+    CONFIRMADAS,
+    CANCELADAS,
+    VERIFICADAS
+}
