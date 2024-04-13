@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class ProcesoDeReserva implements Runnable{
@@ -62,7 +61,7 @@ public class ProcesoDeReserva implements Runnable{
         }
     }
     public void reservar(Asiento asiento){
-        vuelo.getRegistros().addReserva(new Reserva(asiento, REGISTRO.PENDIENTE_DE_PAGO));
+        vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento, TIPO_DE_RESERVA.PENDIENTE_DE_PAGO));
         asiento.setEstado(ESTADO.OCUPADO);
     }
     public synchronized int getCantidadDeReservas(){

@@ -1,9 +1,9 @@
 public class Vuelo {
     private MatrizDeAsientos matrizDeAsientos;
-    private Registros registros;
-    public Vuelo(MatrizDeAsientos matrizDeAsientos, Registros registros){
+    private RegistroDeReservas registroDeReservas;
+    public Vuelo(MatrizDeAsientos matrizDeAsientos, RegistroDeReservas registroDeReservas){
         this.matrizDeAsientos = matrizDeAsientos;
-        this.registros = registros;
+        this.registroDeReservas = registroDeReservas;
     }
 
     public MatrizDeAsientos getMatrizDeAsientos() {
@@ -14,11 +14,11 @@ public class Vuelo {
         this.matrizDeAsientos = matrizDeAsientos;
     }
 
-    public Registros getRegistros() {
-        return registros;
+    public RegistroDeReservas getRegistros() {
+        return registroDeReservas;
     }
 
-    public void setRegistros(Registros registros) {
-        this.registros = registros;
+    public void setRegistros(RegistroDeReservas registroDeReservas) {
+        this.registroDeReservas = registroDeReservas;
     }
 }

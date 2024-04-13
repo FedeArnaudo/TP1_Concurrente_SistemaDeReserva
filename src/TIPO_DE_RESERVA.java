@@ -1,4 +1,4 @@
-public enum REGISTRO {
+public enum TIPO_DE_RESERVA {
     PENDIENTE_DE_PAGO,
     CONFIRMADAS,
     CANCELADAS,

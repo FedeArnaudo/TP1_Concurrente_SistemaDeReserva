@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf1216db-73a1-492d-a41e-0b0be1bd83ce" name="Changes" comment="" />
+    <list default="true" id="bf1216db-73a1-492d-a41e-0b0be1bd83ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BufferDeReservas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeReserva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/REGISTRO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TIPO_DE_RESERVA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Registros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistroDeReservas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reserva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vuelo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vuelo.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +50,11 @@
     "last_opened_file_path": "D:/Programacion Concurrente/2024/BackUp"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\danie\OneDrive\Escritorio\Facu\4° Año\Primer Cuatrimestre\Programación Concurrente\Trabajos Prácticos\TP1\TP1_Concurrente_SistemaDeReserva" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="SistemaDeReservas" />

@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         MatrizDeAsientos matrizDeAsientos = new MatrizDeAsientos();
-        Registros registros = new Registros();
-        Vuelo vuelo = new Vuelo(matrizDeAsientos, registros);
+        RegistroDeReservas registroDeReservas = new RegistroDeReservas();
+        Vuelo vuelo = new Vuelo(matrizDeAsientos, registroDeReservas);
 
         ProcesoDeReserva procesoDeReserva = new ProcesoDeReserva(vuelo);
         ProcesoDePago procesoDePago = new ProcesoDePago(vuelo);
