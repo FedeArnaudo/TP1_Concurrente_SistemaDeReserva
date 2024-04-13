@@ -5,9 +5,12 @@ public class MatrizDeAsientos {
     private final int CANTIDAD_DE_FILAS = 31;
     private final int CANTIDAD_DE_COLUMNAS = 6;
     private final int CANTIDAD_MAX_ASIENTOS = 31 * 6;
+    private int cantidadDeAsientosLibres;
+
     private Random random;
     public MatrizDeAsientos(){
         matrizDeAsientos = new Asiento[CANTIDAD_DE_FILAS][CANTIDAD_DE_COLUMNAS];
+        cantidadDeAsientosLibres = CANTIDAD_MAX_ASIENTOS;
         random = new Random();
 
         int k = 1;
@@ -27,11 +30,15 @@ public class MatrizDeAsientos {
         return matrizDeAsientos;
     }
 
-    public Asiento getAsiento(){
+    public synchronized Asiento getAsientoRandom(){
         int i = random.nextInt(CANTIDAD_DE_FILAS);
         int j = random.nextInt(CANTIDAD_DE_COLUMNAS);
-
+        cantidadDeAsientosLibres--;
         return matrizDeAsientos[i][j];
 
+    }
+
+    public int getCantidadDeAsientosLibres(){
+        return cantidadDeAsientosLibres;
     }
 }

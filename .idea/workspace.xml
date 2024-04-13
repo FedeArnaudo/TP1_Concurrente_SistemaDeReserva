@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf1216db-73a1-492d-a41e-0b0be1bd83ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BufferDeReservas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MatrizDeAsientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MatrizDeAsientos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeReserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/REGISTRO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TIPO_DE_RESERVA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistroDeReservas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vuelo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vuelo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +41,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/Programacion Concurrente/2024/BackUp"
+    "last_opened_file_path": "D:/Programacion Concurrente/2024/BackUp",
+    "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -117,5 +112,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

@@ -1,34 +1,23 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ProcesoDeReserva implements Runnable{
     private Vuelo vuelo;
-    private int cantidadDeReservas;
-    private ArrayList<Integer> cantRes;
     public ProcesoDeReserva(Vuelo vuelo){
         this.vuelo = vuelo;
-        cantidadDeReservas = vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
-        cantRes = new ArrayList<>();
     }
 
     @Override
     public void run() {
-        while (true){
-            Asiento asiento = vuelo.getMatrizDeAsientos().getAsiento();
+        while (vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() >= 0){
+            Asiento asiento = vuelo.getMatrizDeAsientos().getAsientoRandom();
             asiento.setIdThread(Thread.currentThread().getName());
             if(asiento.getIdThread() != null && asiento.getIdThread().equals(Thread.currentThread().getName()) && asiento.getEstado().equals(ESTADO.LIBRE)){
                 reservar(asiento);
-                setCantidadDeReservas(asiento);
                 asiento.setIdThread(Thread.currentThread().getName());
-            }
-            if(getCantidadDeReservas() == 0){
-                break;
+                System.out.println("Asiento número: " + asiento.getNumeroAsiento());
             }
         }
-        int i = 0;
+        /*int i = 0;
         synchronized (this){
             i++;
             if(i == 1){
@@ -58,27 +47,10 @@ public class ProcesoDeReserva implements Runnable{
                     System.err.println("Error al escribir en el archivo: " + e.getMessage());
                 }
             }
-        }
+        }*/
     }
     public void reservar(Asiento asiento){
         vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento, TIPO_DE_RESERVA.PENDIENTE_DE_PAGO));
         asiento.setEstado(ESTADO.OCUPADO);
-    }
-    public synchronized int getCantidadDeReservas(){
-        return cantidadDeReservas;
-    }
-    public synchronized void setCantidadDeReservas(Asiento asiento){
-        /*
-        String print = "" + Thread.currentThread().getName() + " - ";
-        if(asiento.getNumeroAsiento() < 10){
-            print += "00";
-        }
-        else if(asiento.getNumeroAsiento() > 9 && asiento.getNumeroAsiento() < 100){
-            print += "0";
-        }
-        System.out.println( print + asiento.getNumeroAsiento() + " - " + getCantidadDeReservas());
-        */
-        cantRes.add(asiento.getNumeroAsiento());
-        cantidadDeReservas --;
     }
 }
