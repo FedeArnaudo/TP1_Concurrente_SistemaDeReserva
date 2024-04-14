@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bf1216db-73a1-492d-a41e-0b0be1bd83ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Asiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Asiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BufferDeReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BufferDeReservas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrizDeAsientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MatrizDeAsientos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDePago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDePago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeReserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vuelo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vuelo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +41,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/Programacion Concurrente/2024/BackUp",
     "nodejs_package_manager_path": "npm"
   }
@@ -105,8 +100,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712962323987</updated>
+      <workItem from="1713058593777" duration="453000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

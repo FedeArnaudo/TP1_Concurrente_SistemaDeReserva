@@ -20,10 +20,6 @@ public class Main {
         thread1.start();
         thread2.start();
         thread3.start();
-
-
-
-
         thread21.start();
         thread22.start();
 
@@ -33,6 +29,16 @@ public class Main {
             thread3.join();
             thread21.join();
             thread22.join();
+            int pendientes = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize();
+            int confirmadas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize();
+            int canceladas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
+            int verificadas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
+
+            System.out.println("Reservas pendientes: " + pendientes);
+            System.out.println("Reservas confirmadas: " + confirmadas);
+            System.out.println("Reservas canceladas: " + canceladas);
+            System.out.println("Reservas verificadas: " + verificadas);
+            System.out.println("Reservas pendientes + confirmadas + canceladas + verificadas: " + (pendientes + confirmadas + canceladas + verificadas));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

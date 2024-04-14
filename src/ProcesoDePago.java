@@ -20,11 +20,6 @@ public class ProcesoDePago implements Runnable{
                     }
                 }
             }
-            int confirmadas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize();
-            int canceladas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
-            System.out.println("Reservas confirmadas: " + confirmadas);
-            System.out.println("Reservas canceladas: " + canceladas);
-            System.out.println("Reservas confirmadas + canceladas: " + (confirmadas + canceladas));
         }
     }
 }
