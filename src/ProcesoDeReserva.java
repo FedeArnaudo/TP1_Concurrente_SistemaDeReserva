@@ -1,85 +1,70 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
 
 public class ProcesoDeReserva implements Runnable{
-    private Vuelo vuelo;
-    private int cantidadDeReservas;
-    private ArrayList<Integer> cantRes;
+    private final Object locker = new Object();
+    private final Vuelo vuelo;
+    private final HashMap<String, Integer> hiloReserva;
+    private final int maxReservas;
+    private final float sleepTime;
     public ProcesoDeReserva(Vuelo vuelo){
         this.vuelo = vuelo;
-        cantidadDeReservas = vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
-        cantRes = new ArrayList<>();
+        hiloReserva = new HashMap<>();
+        maxReservas = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS()/3);
+        sleepTime = (float) ((10.0 * 1000.0 ) / maxReservas);
     }
 
     @Override
     public void run() {
-        while (true){
-            Asiento asiento = vuelo.getMatrizDeAsientos().getAsiento();
-            asiento.setIdThread(Thread.currentThread().getName());
-            if(asiento.getIdThread() != null && asiento.getIdThread().equals(Thread.currentThread().getName()) && asiento.getEstado().equals(ESTADO.LIBRE)){
+        addReserva();
+        while (reservasPorHilo(Thread.currentThread().getName()) < maxReservas){
+            long inicio = 0L;
+            long fin = 0L;
+            inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
+
+            Asiento asiento = vuelo.getMatrizDeAsientos().getAsientoRandom();
+            if(asiento != null && asiento.getEstado().equals(ESTADO.LIBRE)){
                 reservar(asiento);
-                setCantidadDeReservas(asiento);
-                asiento.setIdThread(Thread.currentThread().getName());
-            }
-            if(getCantidadDeReservas() == 0){
-                break;
-            }
-        }
-        int i = 0;
-        synchronized (this){
-            i++;
-            if(i == 1){
-                Collections.sort(cantRes);
-                // Crear un archivo de texto
-                String nombreArchivo = "Pruebas.txt";
+                vuelo.getMatrizDeAsientos().decrementarCantidadDeAsientosLibres();
 
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
-                    // Escribir los datos en el archivo
-                    for (Integer numero : cantRes) {
-                        String print = "";
-                        if(numero < 10){
-                            print = "00";
-                        }
-                        else if(numero > 9 && numero < 100){
-                            print = "0";
-                        }
-                        writer.write(print + numero.toString() + " ");
+                synchronized (locker){
+                    System.out.println(Thread.currentThread().getName() + " - " + asiento.getNumeroAsiento());
+                }
 
-                        if(numero == (i * 10)){
-                            writer.newLine();
-                            i++;
-                        }
+                asiento.setIdThread(null);
+                fin = (long) (sleepTime - (System.currentTimeMillis() - inicio));
+                if(fin > 0){
+                    try {
+                        Thread.sleep(fin);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
-
-                } catch (IOException e) {
-                    System.err.println("Error al escribir en el archivo: " + e.getMessage());
                 }
             }
         }
+
     }
     public void reservar(Asiento asiento){
-        vuelo.getRegistros().addReserva(new Reserva(asiento, REGISTRO.PENDIENTE_DE_PAGO));
         asiento.setEstado(ESTADO.OCUPADO);
+        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento));
+        addReserva();
     }
-    public synchronized int getCantidadDeReservas(){
-        return cantidadDeReservas;
+    public void addReserva() {
+        synchronized (this){
+            String nameThread = "" + Thread.currentThread().getName();
+            int numRes = 0;
+            if(!hiloReserva.containsKey(nameThread)){
+                hiloReserva.put(nameThread, numRes);
+            }
+            else {
+                numRes = hiloReserva.get(nameThread) + 1;
+                hiloReserva.put(nameThread, numRes);
+            }
+        }
     }
-    public synchronized void setCantidadDeReservas(Asiento asiento){
-        /*
-        String print = "" + Thread.currentThread().getName() + " - ";
-        if(asiento.getNumeroAsiento() < 10){
-            print += "00";
+
+    public Integer reservasPorHilo(String idThread){
+        synchronized (this){
+            return hiloReserva.get(idThread);
         }
-        else if(asiento.getNumeroAsiento() > 9 && asiento.getNumeroAsiento() < 100){
-            print += "0";
-        }
-        System.out.println( print + asiento.getNumeroAsiento() + " - " + getCantidadDeReservas());
-        */
-        cantRes.add(asiento.getNumeroAsiento());
-        cantidadDeReservas --;
     }
 }
