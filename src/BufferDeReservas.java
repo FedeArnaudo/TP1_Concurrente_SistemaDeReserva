@@ -13,16 +13,20 @@ public class BufferDeReservas {
     public void addReserva(Reserva reserva) {
         synchronized (this) {
             reservas.add(reserva);
+            reserva.setAvailable(true);
         }
     }
 
     public Reserva getReserva() {
         synchronized (this) {
             if (!reservas.isEmpty()) {
-                return reservas.get(random.nextInt(reservas.size()));
-            } else {
-                return null;
+                Reserva reserva = reservas.get(random.nextInt(reservas.size()));
+                if (reserva.isAvailable()) {
+                    reserva.setAvailable(false);
+                    return reserva;
+                }
             }
+            return null;
         }
     }
 

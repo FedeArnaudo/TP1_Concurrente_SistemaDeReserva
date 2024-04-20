@@ -11,15 +11,22 @@ public class ProcesoDePago implements Runnable{
             if (reserva == null) continue;
             if (reserva.getAsiento().getEstado().equals(ESTADO.OCUPADO)) {
                 if (reserva.getProbabiliadadDePago()) {
-                    if (vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).deleteReserva(reserva))
-                        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).addReserva(reserva);
+                    pagar(reserva);
                 } else {
-                    if (vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).deleteReserva(reserva)) {
-                      vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
-                        reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
-                    }
+                    cancelar(reserva);
                 }
             }
         }
+    }
+
+    private void pagar(Reserva reserva){
+        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).deleteReserva(reserva);
+        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).addReserva(reserva);
+    }
+
+    private void cancelar(Reserva reserva) {
+        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).deleteReserva(reserva);
+        vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
+        reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
     }
 }

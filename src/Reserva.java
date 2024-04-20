@@ -2,13 +2,14 @@ import java.util.Random;
 
 public class Reserva {
     private Asiento asiento;
-    private String idThread;
+    private boolean available;
     private final Random random;
     private final int PROBABILIDAD_PAGO = 90;
     private final int PROBABILIDAD_DE_CANCELACION = 10;
     public Reserva(Asiento asiento){
         this.asiento = asiento;
         random = new Random();
+        available = true;
     }
 
     public Asiento getAsiento() {
@@ -19,12 +20,12 @@ public class Reserva {
         this.asiento = asiento;
     }
 
-    public String getIdThread() {
-        return idThread;
+    public synchronized boolean isAvailable() {
+        return available;
     }
 
-    public void setIdThread(String idThread) {
-        this.idThread = idThread;
+    public synchronized void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public boolean getProbabiliadadDePago() {
