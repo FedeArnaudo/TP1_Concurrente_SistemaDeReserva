@@ -7,7 +7,7 @@ public class ProcesoDeVerificacion implements Runnable{
     @Override
     public void run() {
         int cantidadReservas = 0;
-        while(cantidadReservas != vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() || vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() > 0   ){
+        while(cantidadReservas != vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() || cantdeChecked() > 0   ){
             cantidadReservas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() + vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
             Reserva reserva = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
             if(reserva == null) continue;
