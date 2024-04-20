@@ -1,13 +1,11 @@
 public class Main {
     public static void main(String[] args) {
-        MatrizDeAsientos matrizDeAsientos = new MatrizDeAsientos();
-        Registros registros = new Registros();
-        Vuelo vuelo = new Vuelo(matrizDeAsientos, registros);
+        Vuelo vuelo = new Vuelo();
 
         ProcesoDeReserva procesoDeReserva = new ProcesoDeReserva(vuelo);
         ProcesoDePago procesoDePago = new ProcesoDePago(vuelo);
         ProcesoDeCancelacionValidacion procesoDeCancelacionValidacion = new ProcesoDeCancelacionValidacion(vuelo);
-        ProcesoDeVerificacion procesoDeVerificacion = new ProcesoDeVerificacion(vuelo);
+
 
 
         /**
@@ -16,19 +14,54 @@ public class Main {
         Thread thread1 = new Thread(procesoDeReserva, "Thread 1-1");
         Thread thread2 = new Thread(procesoDeReserva, "Thread 1-2");
         Thread thread3 = new Thread(procesoDeReserva, "Thread 1-3");
+        Thread thread21 = new Thread(procesoDePago, "Thread 2-1");
+        Thread thread22 = new Thread(procesoDePago, "Thread 2-2");
+        Thread thread31 = new Thread(procesoDeCancelacionValidacion, "Thread 3-1");
+        Thread thread32 = new Thread(procesoDeCancelacionValidacion, "Thread 3-2");
+        Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
 
         thread1.start();
         thread2.start();
         thread3.start();
+        thread21.start();
+        thread22.start();
+        thread31.start();
+        thread32.start();
+        thread33.start();
+        long inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
 
         try {
             thread1.join();
             thread2.join();
             thread3.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            thread21.join();
+            thread22.join();
+            thread31.join();
+            thread32.join();
+            thread33.join();
 
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        long fin = System.currentTimeMillis(); // Registrar el tiempo final
+        double timeEjection = fin - inicio; // Calcular la diferencia de tiempo
+
+        System.out.println("Tiempo de ejecución: " + (timeEjection / 1000) + " segundos");
+
+        int pendientes = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize();
+        int confirmadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize();
+        int canceladas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
+        int verificadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
+        int listachecked = procesoDeCancelacionValidacion.cantdechecked();
+
+        System.out.println(listachecked);
+        System.out.println("Reservas pendientes: " + pendientes);
+        System.out.println("Reservas confirmadas: " + confirmadas);
+        System.out.println("Reservas canceladas: " + canceladas);
+        System.out.println("Reservas verificadas: " + verificadas);
+        System.out.println("Reservas pendientes + confirmadas + canceladas + verificadas: " + (pendientes + confirmadas + canceladas + verificadas));
     }
 
     /*

@@ -39,6 +39,10 @@ gradle-app.setting
 ## IntelliJ
 ##############################
 out/
+<<<<<<< HEAD
+=======
+.idea/workspace.xml
+>>>>>>> feature/reservation-process
 *.iml
 *.ipr
 *.iws

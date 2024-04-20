@@ -7,13 +7,14 @@ public class Asiento {
     public Asiento(int numeroAsiento, ESTADO estado){
         this.numeroAsiento = numeroAsiento;
         this.estado = estado;
+        idThread = null;
     }
 
-    public ESTADO getEstado() {
+    public synchronized ESTADO getEstado() {
         return estado;
     }
 
-    public void setEstado(ESTADO estado) {
+    public synchronized void setEstado(ESTADO estado) {
         this.estado = estado;
     }
 
@@ -28,14 +29,7 @@ public class Asiento {
     public String getIdThread() {
         return idThread;
     }
-
-    public synchronized void setIdThread(String idThread) {
-        if(getIdThread() == null){
-            this.idThread = idThread;
-        }
-        else if(getIdThread().equals(idThread)){
-            this.idThread = null;
-        }
-
+    public void setIdThread(String idThread){
+        this.idThread = idThread;
     }
 }
