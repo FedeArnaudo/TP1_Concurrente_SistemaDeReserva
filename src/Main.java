@@ -19,6 +19,8 @@ public class Main {
         Thread thread31 = new Thread(procesoDeCancelacionValidacion, "Thread 3-1");
         Thread thread32 = new Thread(procesoDeCancelacionValidacion, "Thread 3-2");
         Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
+        Thread tread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
+        Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-2");
 
         thread1.start();
         thread2.start();
@@ -28,6 +30,8 @@ public class Main {
         thread31.start();
         thread32.start();
         thread33.start();
+        thread41.start();
+        thread42.start();
         long inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
 
         try {
@@ -39,7 +43,8 @@ public class Main {
             thread31.join();
             thread32.join();
             thread33.join();
-
+            thread41.join();
+            thread41.join();
 
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
