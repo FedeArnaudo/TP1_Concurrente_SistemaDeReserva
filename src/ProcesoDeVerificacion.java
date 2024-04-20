@@ -11,7 +11,7 @@ public class ProcesoDeVerificacion implements Runnable{
             cantidadReservas = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() + vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
             Reserva reserva = vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
             if(reserva == null) continue;
-            if(reserva.getAsiento().getEstado().equals(ESTADO.VALIDADO)){
+            if(checked(reserva)){
                 if(vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.CONFIRMADAS).deleteReserva(reserva)) {
                     vuelo.getRegistros().getReservas(TIPO_DE_RESERVA.VERIFICADAS).addReserva(reserva);
                 }
