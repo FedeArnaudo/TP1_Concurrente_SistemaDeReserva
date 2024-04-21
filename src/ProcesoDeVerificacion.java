@@ -8,11 +8,13 @@ public class ProcesoDeVerificacion implements Runnable{
     public void run() {
 
         int cantidadReservas = 0;
-        while(cantidadReservas != vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() || vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() > 0){
+        while(vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() > 0
+                || vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize() > 0
+                || vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() > 0){
             cantidadReservas = cantReservas();
             Reserva reserva = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
             if(reserva == null) continue;
-            if(reserva.getAsiento().getEstado().equals(ESTADO.CHECKED)){
+            if(reserva.isChecked()){
                 verificar(reserva);
             }
         }

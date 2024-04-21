@@ -19,6 +19,7 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
             if (reserva.getPROBABILIDAD_DE_CANCELACION()) {
                 vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).deleteReserva(reserva);
                 vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
+                reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
             } else {
                 reserva.setChecked(true);
                 reserva.setAvailable(true);
