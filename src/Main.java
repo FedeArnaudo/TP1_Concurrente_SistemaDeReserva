@@ -5,8 +5,7 @@ public class Main {
         ProcesoDeReserva procesoDeReserva = new ProcesoDeReserva(vuelo);
         ProcesoDePago procesoDePago = new ProcesoDePago(vuelo);
         ProcesoDeCancelacionValidacion procesoDeCancelacionValidacion = new ProcesoDeCancelacionValidacion(vuelo);
-
-
+        ProcesoDeVerificacion procesoDeVerificacion = new ProcesoDeVerificacion(vuelo);
 
         /**
          * Hilos del proceso 1 - Proceso De Reserva
@@ -19,8 +18,8 @@ public class Main {
         Thread thread31 = new Thread(procesoDeCancelacionValidacion, "Thread 3-1");
         Thread thread32 = new Thread(procesoDeCancelacionValidacion, "Thread 3-2");
         Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
-        Thread tread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
-        Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-2");
+        Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
+        Thread thread42 = new Thread(procesoDeVerificacion, "Thread 4-2");
 
         thread1.start();
         thread2.start();
