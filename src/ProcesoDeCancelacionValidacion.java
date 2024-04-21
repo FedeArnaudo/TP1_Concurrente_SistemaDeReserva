@@ -27,6 +27,7 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
             }
             else {
                 isChecked(reservaConfirmada);
+                reservaConfirmada.getAsiento().setEstado(ESTADO.CHECKED);
             }
         }
     }
