@@ -3,6 +3,7 @@ import java.util.Random;
 public class Reserva {
     private Asiento asiento;
     private boolean available;
+    private boolean checked;
     private final Random random;
     private final int PROBABILIDAD_PAGO = 90;
     private final int PROBABILIDAD_DE_CANCELACION = 10;
@@ -10,6 +11,7 @@ public class Reserva {
         this.asiento = asiento;
         random = new Random();
         available = true;
+        checked = false;
     }
 
     public Asiento getAsiento() {
@@ -37,5 +39,12 @@ public class Reserva {
     }
     private int getProbabilidad(){
         return (random.nextInt(100));
+    }
+    public synchronized void setChecked (boolean checked) {
+        this.checked = checked;
+
+    }
+    public synchronized boolean isChecked () {
+        return checked;
     }
 }
