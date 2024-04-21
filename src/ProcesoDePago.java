@@ -25,8 +25,8 @@ public class ProcesoDePago implements Runnable{
     }
 
     private void cancelar(Reserva reserva) {
+        reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
         vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).deleteReserva(reserva);
         vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
-        reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
     }
 }

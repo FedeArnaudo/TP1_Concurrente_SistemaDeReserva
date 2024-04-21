@@ -43,11 +43,11 @@ public class Main {
             thread32.join();
             thread33.join();
             thread41.join();
-            thread41.join();
+            thread42.join();
 
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         long fin = System.currentTimeMillis(); // Registrar el tiempo final
         double timeEjection = fin - inicio; // Calcular la diferencia de tiempo
@@ -58,14 +58,16 @@ public class Main {
         int confirmadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize();
         int canceladas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
         int verificadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
-        int listachecked = procesoDeCancelacionValidacion.cantdechecked();
 
-        System.out.println(listachecked);
         System.out.println("Reservas pendientes: " + pendientes);
         System.out.println("Reservas confirmadas: " + confirmadas);
         System.out.println("Reservas canceladas: " + canceladas);
         System.out.println("Reservas verificadas: " + verificadas);
         System.out.println("Reservas pendientes + confirmadas + canceladas + verificadas: " + (pendientes + confirmadas + canceladas + verificadas));
+
+        for (int i = 0; i < confirmadas; i++) {
+            System.out.println(vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva(i).isAvailable());
+        }
     }
 
     /*

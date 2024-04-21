@@ -42,7 +42,7 @@ public class Reserva {
     }
     public synchronized void setChecked (boolean checked) {
         this.checked = checked;
-
+        this.available = true;
     }
     public synchronized boolean isChecked () {
         return checked;

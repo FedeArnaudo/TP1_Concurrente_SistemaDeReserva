@@ -24,10 +24,17 @@ public class BufferDeReservas {
                 if (reserva.isAvailable()) {
                     reserva.setAvailable(false);
                     return reserva;
+                } else {
+                    return null;
                 }
+            } else {
+                return null;
             }
-            return null;
         }
+    }
+
+    public Reserva getReserva(int numReserva) {
+        return reservas.get(numReserva);
     }
 
     public boolean deleteReserva(Reserva reserva) {

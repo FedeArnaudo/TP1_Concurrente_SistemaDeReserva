@@ -1,3 +1,4 @@
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class ProcesoDeCancelacionValidacion implements Runnable {
@@ -10,36 +11,37 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
 
     @Override
     public void run() {
-        while (vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() > 0
-                || vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize() > 0
-                || vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() > 0){
+        while (isProcessActive()){
+            System.out.println("Verificacion "
+                    + vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() + " "
+                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize() + " "
+                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() + " "
+                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + " "
+                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize());
             Reserva reserva = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
             if (reserva == null) continue;
-            if (reserva.isChecked()) continue;
-            if (reserva.getPROBABILIDAD_DE_CANCELACION()) {
-                vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).deleteReserva(reserva);
-                vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
-                reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
+            //System.out.println("Reserva: " + reserva.isChecked() + " Numero: " + reserva.getAsiento().getNumeroAsiento());
+            if (!reserva.isChecked()) {
+                if (reserva.getPROBABILIDAD_DE_CANCELACION()) {
+                    vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).deleteReserva(reserva);
+                    vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
+                    reserva.getAsiento().setEstado(ESTADO.DESCARTADO);
+                } else {
+                    reserva.setChecked(true);
+                }
             } else {
-                reserva.setChecked(true);
                 reserva.setAvailable(true);
             }
         }
     }
 
-    public void cancelarValidar()
-    {
-
-    }    public void isChecked(Reserva reserva){
-        synchronized (this){
-            reservasChecked.add(reserva);
-        }
-    }
-    public int cantdechecked (){
-        return reservasChecked.size();
-    }
-    public boolean check(Reserva reserva){
-        return reservasChecked.contains(reserva);
+    public boolean isProcessActive() {
+        BufferDeReservas pendientesDePago = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO);
+        BufferDeReservas confirmadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS);
+        BufferDeReservas canceladas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS);
+        BufferDeReservas verificadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS);
+        int cantProcesadas = confirmadas.getSize() + canceladas.getSize() + verificadas.getSize();
+        return cantProcesadas < vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
     }
 }
 
