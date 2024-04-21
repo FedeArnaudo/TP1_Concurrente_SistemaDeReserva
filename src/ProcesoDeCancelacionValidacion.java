@@ -37,6 +37,8 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
     public int cantdechecked (){
         return reservasChecked.size();
     }
-
+    public boolean check(Reserva reserva){
+        return reservasChecked.contains(reserva);
+    }
 }
 
