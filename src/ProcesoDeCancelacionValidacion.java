@@ -1,23 +1,23 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProcesoDeCancelacionValidacion implements Runnable {
+    private final Object locker = new Object();
     private final Vuelo vuelo;
-    public final ArrayList<Reserva> reservasChecked;
+    private long registroDeTiempo;
+    private long sleepTime;
     public ProcesoDeCancelacionValidacion(Vuelo vuelo) {
         this.vuelo = vuelo;
-        reservasChecked = new ArrayList<>();
+        registroDeTiempo = 0;
+        sleepTime = 30 * 1000;
     }
 
     @Override
     public void run() {
         while (isProcessActive()){
-            /*System.out.println("Verificacion "
-                    + vuelo.getMatrizDeAsientos().getCantidadDeAsientosLibres() + " "
-                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getSize() + " "
-                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getSize() + " "
-                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + " "
-                    + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize());
-             */
+            long inicio = 0L;
+            long fin = 0L;
+            inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
             Reserva reserva = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
 
             if(reserva != null && !reserva.isChecked()){
@@ -26,6 +26,25 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
                 } else {
                     validar(reserva);
                 }
+
+                reserva.setAvailable(true);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                fin = System.currentTimeMillis() - inicio;
+                registrarTiempo(fin);
+            }
+        }
+        if(Thread.currentThread().getName() == "Thread 3-1"){
+            sleepTime -= getRegistroDeTiempo();
+
+            try {
+                Thread.sleep((long)sleepTime);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -41,12 +60,21 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
     }
 
     public boolean isProcessActive() {
-        BufferDeReservas pendientesDePago = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO);
-        BufferDeReservas confirmadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS);
-        BufferDeReservas canceladas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS);
-        BufferDeReservas verificadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS);
-        int cantProcesadas = confirmadas.getSize() + canceladas.getSize() + verificadas.getSize();
+        int cantProcesadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
+        cantProcesadas += vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
         return cantProcesadas < vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
+    }
+
+    public void registrarTiempo(long tiempo){
+        synchronized (this){
+            registroDeTiempo += tiempo;
+        }
+    }
+
+    public long getRegistroDeTiempo() {
+        synchronized (this){
+            return registroDeTiempo;
+        }
     }
 }
 

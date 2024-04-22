@@ -19,4 +19,8 @@ public class RegistroDeReservas {
             default: return null;
         }
     }
+
+    public void getTotal(){
+
+    }
 }

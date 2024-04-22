@@ -36,7 +36,6 @@ public class Log implements Runnable {
         }
 
         int contador = 0;
-        int cantidadCanceladas = 0;
 
         // Escribir en el archivo
         FileWriter escritor = null;
@@ -45,7 +44,7 @@ public class Log implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (contador < 10){
+        while (isProcessActive()){
 
             try {
                 escritor.write("Cantidad de reservas canceladas" + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + "\n");
@@ -68,5 +67,11 @@ public class Log implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isProcessActive() {
+        int cantProcesadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
+        cantProcesadas += vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
+        return cantProcesadas < vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
     }
 }

@@ -10,7 +10,7 @@ public class ProcesoDeReserva implements Runnable{
         this.vuelo = vuelo;
         registroDeHilos = new HashMap<>();
         asientosPorHilo = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 3);
-        sleepTime = (float) ((10.0 * 1000.0 ) / asientosPorHilo);
+        sleepTime = (float) ((10.0 * 1000.0 ) / asientosPorHilo);   // tiempo (s) * 1000ms / cantidadDeHilos
     }
 
     @Override
