@@ -3,20 +3,20 @@ import java.util.HashMap;
 public class ProcesoDeReserva implements Runnable{
     private final Object locker = new Object();
     private final Vuelo vuelo;
-    private final HashMap<String, Integer> hiloReserva;
-    private final int maxReservas;
+    private final HashMap<String, Integer> registroDeHilos;
+    private final int asientosPorHilo;
     private final float sleepTime;
     public ProcesoDeReserva(Vuelo vuelo){
         this.vuelo = vuelo;
-        hiloReserva = new HashMap<>();
-        maxReservas = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS()/3);
-        sleepTime = (float) ((10.0 * 1000.0 ) / maxReservas);
+        registroDeHilos = new HashMap<>();
+        asientosPorHilo = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 3);
+        sleepTime = (float) ((10.0 * 1000.0 ) / asientosPorHilo);
     }
 
     @Override
     public void run() {
         addReserva();
-        while (reservasPorHilo(Thread.currentThread().getName()) < maxReservas){
+        while (reservasPorHilo(Thread.currentThread().getName()) < asientosPorHilo){
             long inicio = 0L;
             long fin = 0L;
             inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
@@ -26,11 +26,14 @@ public class ProcesoDeReserva implements Runnable{
                 reservar(asiento);
                 vuelo.getMatrizDeAsientos().decrementarCantidadDeAsientosLibres();
 
+                /*
                 synchronized (locker){
                     System.out.println(Thread.currentThread().getName() + " - " + asiento.getNumeroAsiento());
-                }
+                }*/
 
-                asiento.setIdThread(null);
+                asiento.setIdThread(null); // Libero el asiento del hilo
+
+                //  Algoritmo de sleep
                 fin = (long) (sleepTime - (System.currentTimeMillis() - inicio));
                 if(fin > 0){
                     try {
@@ -51,20 +54,19 @@ public class ProcesoDeReserva implements Runnable{
     public void addReserva() {
         synchronized (this){
             String nameThread = "" + Thread.currentThread().getName();
-            int numRes = 0;
-            if(!hiloReserva.containsKey(nameThread)){
-                hiloReserva.put(nameThread, numRes);
+            int numeroDeReserva = 0;
+            if(!registroDeHilos.containsKey(nameThread)){
+                registroDeHilos.put(nameThread, numeroDeReserva);
             }
             else {
-                numRes = hiloReserva.get(nameThread) + 1;
-                hiloReserva.put(nameThread, numRes);
+                numeroDeReserva = registroDeHilos.get(nameThread) + 1;
+                registroDeHilos.put(nameThread, numeroDeReserva);
             }
         }
     }
-
     public Integer reservasPorHilo(String idThread){
         synchronized (this){
-            return hiloReserva.get(idThread);
+            return registroDeHilos.get(idThread);
         }
     }
 }

@@ -6,6 +6,7 @@ public class Main {
         ProcesoDePago procesoDePago = new ProcesoDePago(vuelo);
         ProcesoDeCancelacionValidacion procesoDeCancelacionValidacion = new ProcesoDeCancelacionValidacion(vuelo);
         ProcesoDeVerificacion procesoDeVerificacion = new ProcesoDeVerificacion(vuelo);
+        Log log = new Log(vuelo);
 
         /**
          * Hilos del proceso 1 - Proceso De Reserva
@@ -15,22 +16,27 @@ public class Main {
         Thread thread3 = new Thread(procesoDeReserva, "Thread 1-3");
         Thread thread21 = new Thread(procesoDePago, "Thread 2-1");
         Thread thread22 = new Thread(procesoDePago, "Thread 2-2");
-        Thread thread31 = new Thread(procesoDeCancelacionValidacion, "Thread 3-1");
-        Thread thread32 = new Thread(procesoDeCancelacionValidacion, "Thread 3-2");
-        Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
-        Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
-        Thread thread42 = new Thread(procesoDeVerificacion, "Thread 4-2");
+        //Thread thread31 = new Thread(procesoDeCancelacionValidacion, "Thread 3-1");
+        //Thread thread32 = new Thread(procesoDeCancelacionValidacion, "Thread 3-2");
+        //Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
+        //Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
+        //Thread thread42 = new Thread(procesoDeVerificacion, "Thread 4-2");
+
+        Thread threadLog = new Thread(log, "Thread Log");
 
         thread1.start();
         thread2.start();
         thread3.start();
         thread21.start();
         thread22.start();
-        thread31.start();
-        thread32.start();
-        thread33.start();
-        thread41.start();
-        thread42.start();
+        //thread31.start();
+        //thread32.start();
+        //thread33.start();
+        //thread41.start();
+        //thread42.start();
+
+        threadLog.start();
+
         long inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
 
         try {
@@ -39,11 +45,12 @@ public class Main {
             thread3.join();
             thread21.join();
             thread22.join();
-            thread31.join();
-            thread32.join();
-            thread33.join();
-            thread41.join();
-            thread42.join();
+            //thread31.join();
+            //thread32.join();
+            //thread33.join();
+            //thread41.join();
+            //thread42.join();
+            threadLog.join();
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -65,9 +72,9 @@ public class Main {
         System.out.println("Reservas verificadas: " + verificadas);
         System.out.println("Reservas pendientes + confirmadas + canceladas + verificadas: " + (pendientes + confirmadas + canceladas + verificadas));
 
-        for (int i = 0; i < confirmadas; i++) {
+        /*for (int i = 0; i < confirmadas; i++) {
             System.out.println(vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva(i).isAvailable());
-        }
+        }*/
     }
 
     /*

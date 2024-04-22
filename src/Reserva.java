@@ -4,14 +4,16 @@ public class Reserva {
     private Asiento asiento;
     private boolean available;
     private boolean checked;
-    private final Random random;
-    private final int PROBABILIDAD_PAGO = 90;
-    private final int PROBABILIDAD_DE_CANCELACION = 10;
+    private final Random random = new Random();
+
+    private final double probabilidadDePago = random.nextDouble() * 100;
+    private final double probabilidadDeCancelacion = random.nextDouble() * 100;
+
     public Reserva(Asiento asiento){
         this.asiento = asiento;
-        random = new Random();
         available = true;
         checked = false;
+
     }
 
     public Asiento getAsiento() {
@@ -30,17 +32,16 @@ public class Reserva {
         this.available = available;
     }
 
-    public boolean getProbabiliadadDePago() {
-        return getProbabilidad() < PROBABILIDAD_PAGO;
+    public boolean getProbabilidadDePago() {
+        int PROBABILIDAD_PAGO = 90;
+        return probabilidadDePago < PROBABILIDAD_PAGO;
     }
 
-    public boolean getPROBABILIDAD_DE_CANCELACION() {
-        return getProbabilidad() < PROBABILIDAD_DE_CANCELACION;
+    public boolean getProbabilidadDeCancelacion() {
+        int PROBABILIDAD_DE_CANCELACION = 10;
+        return probabilidadDeCancelacion < PROBABILIDAD_DE_CANCELACION;
     }
-    private int getProbabilidad(){
-        return (random.nextInt(100));
-    }
-    public synchronized void setChecked (boolean checked) {
+    public void setChecked (boolean checked) {
         this.checked = checked;
         this.available = true;
     }

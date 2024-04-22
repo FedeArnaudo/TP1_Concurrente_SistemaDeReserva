@@ -18,18 +18,16 @@ public class BufferDeReservas {
     }
 
     public Reserva getReserva() {
+        Reserva reserva = null;
         synchronized (this) {
             if (!reservas.isEmpty()) {
-                Reserva reserva = reservas.get(random.nextInt(reservas.size()));
+                reserva = reservas.get(random.nextInt(reservas.size()));
                 if (reserva.isAvailable()) {
                     reserva.setAvailable(false);
                     return reserva;
-                } else {
-                    return null;
                 }
-            } else {
-                return null;
             }
+            return reserva;
         }
     }
 
@@ -37,13 +35,15 @@ public class BufferDeReservas {
         return reservas.get(numReserva);
     }
 
-    public boolean deleteReserva(Reserva reserva) {
+    public void deleteReserva(Reserva reserva) {
         synchronized (this) {
-            return reservas.remove(reserva);
+            reservas.remove(reserva);
         }
     }
 
     public int getSize() {
-        return reservas.size();
+        synchronized (this){
+            return reservas.size();
+        }
     }
 }
