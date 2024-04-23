@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class BufferDeReservas {
     private final ArrayList<Reserva> reservas;
-    private Random random;
+    private final Random random;
 
     public BufferDeReservas(){
         reservas = new ArrayList<Reserva>();
@@ -24,15 +24,13 @@ public class BufferDeReservas {
                 reserva = reservas.get(random.nextInt(reservas.size()));
                 if (reserva.isAvailable()) {
                     reserva.setAvailable(false);
-                    return reserva;
+                }
+                else {
+                    reserva = null;
                 }
             }
-            return reserva;
         }
-    }
-
-    public Reserva getReserva(int numReserva) {
-        return reservas.get(numReserva);
+        return reserva;
     }
 
     public void deleteReserva(Reserva reserva) {

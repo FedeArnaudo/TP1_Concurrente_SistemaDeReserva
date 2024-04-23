@@ -6,11 +6,13 @@ public class ProcesoDeReserva implements Runnable{
     private final HashMap<String, Integer> registroDeHilos;
     private final int asientosPorHilo;
     private final float sleepTime;
+    private int contador;
     public ProcesoDeReserva(Vuelo vuelo){
         this.vuelo = vuelo;
         registroDeHilos = new HashMap<>();
         asientosPorHilo = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 3);
-        sleepTime = (float) ((10.0 * 1000.0 ) / asientosPorHilo);   // tiempo (s) * 1000ms / cantidadDeHilos
+        sleepTime = (float) ((5 * 1000.0 ) / asientosPorHilo);   // tiempo (s) * 1000ms / cantidadDeHilos
+        contador = 1; // Eliminar
     }
 
     @Override
@@ -24,11 +26,23 @@ public class ProcesoDeReserva implements Runnable{
             Asiento asiento = vuelo.getMatrizDeAsientos().getAsientoRandom();
             if(asiento != null && asiento.getEstado().equals(ESTADO.LIBRE)){
                 reservar(asiento);
-                vuelo.getMatrizDeAsientos().decrementarCantidadDeAsientosLibres();
 
-                /*
-                synchronized (locker){
-                    System.out.println(Thread.currentThread().getName() + " - " + asiento.getNumeroAsiento());
+                /*synchronized (this){
+                    String numeroAsiento = "";
+                    if(asiento.getNumeroAsiento() < 10){
+                        numeroAsiento = "00" + asiento.getNumeroAsiento();
+                    }
+                    else if(asiento.getNumeroAsiento() < 100){
+                        numeroAsiento = "0" + asiento.getNumeroAsiento();
+                    }
+                    else {
+                        numeroAsiento = "" + asiento.getNumeroAsiento();
+                    }
+                    System.out.println(Thread.currentThread().getName() + " - " +
+                            "" + contador + " - " +
+                            "" + numeroAsiento +" - " +
+                            "" + asiento.getEstado());
+                    contador ++;
                 }*/
 
                 asiento.setIdThread(null); // Libero el asiento del hilo

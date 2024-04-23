@@ -1,77 +1,79 @@
 Cantidad de reservas canceladas0
 Cantidad de reservas aprobadas0
-Cantidad de reservas canceladas0
-Cantidad de reservas aprobadas5
+
 Cantidad de reservas canceladas1
-Cantidad de reservas aprobadas8
-Cantidad de reservas canceladas3
-Cantidad de reservas aprobadas11
-Cantidad de reservas canceladas3
-Cantidad de reservas aprobadas16
+Cantidad de reservas aprobadas7
+
+Cantidad de reservas canceladas4
+Cantidad de reservas aprobadas12
+
 Cantidad de reservas canceladas5
-Cantidad de reservas aprobadas19
-Cantidad de reservas canceladas5
+Cantidad de reservas aprobadas18
+
+Cantidad de reservas canceladas7
 Cantidad de reservas aprobadas24
-Cantidad de reservas canceladas5
+
+Cantidad de reservas canceladas8
 Cantidad de reservas aprobadas30
-Cantidad de reservas canceladas5
-Cantidad de reservas aprobadas32
-Cantidad de reservas canceladas5
+
+Cantidad de reservas canceladas10
 Cantidad de reservas aprobadas36
-Cantidad de reservas canceladas6
-Cantidad de reservas aprobadas42
-Cantidad de reservas canceladas6
-Cantidad de reservas aprobadas47
-Cantidad de reservas canceladas9
-Cantidad de reservas aprobadas50
+
 Cantidad de reservas canceladas12
+Cantidad de reservas aprobadas41
+
+Cantidad de reservas canceladas13
+Cantidad de reservas aprobadas48
+
+Cantidad de reservas canceladas15
 Cantidad de reservas aprobadas53
-Cantidad de reservas canceladas12
+
+Cantidad de reservas canceladas17
 Cantidad de reservas aprobadas59
-Cantidad de reservas canceladas13
-Cantidad de reservas aprobadas62
-Cantidad de reservas canceladas13
-Cantidad de reservas aprobadas65
-Cantidad de reservas canceladas13
-Cantidad de reservas aprobadas70
-Cantidad de reservas canceladas15
-Cantidad de reservas aprobadas73
-Cantidad de reservas canceladas15
-Cantidad de reservas aprobadas78
-Cantidad de reservas canceladas17
-Cantidad de reservas aprobadas82
-Cantidad de reservas canceladas17
-Cantidad de reservas aprobadas88
-Cantidad de reservas canceladas19
-Cantidad de reservas aprobadas90
-Cantidad de reservas canceladas19
-Cantidad de reservas aprobadas94
-Cantidad de reservas canceladas19
-Cantidad de reservas aprobadas98
+
 Cantidad de reservas canceladas20
-Cantidad de reservas aprobadas101
+Cantidad de reservas aprobadas63
+
+Cantidad de reservas canceladas20
+Cantidad de reservas aprobadas71
+
 Cantidad de reservas canceladas21
-Cantidad de reservas aprobadas104
+Cantidad de reservas aprobadas77
+
 Cantidad de reservas canceladas23
-Cantidad de reservas aprobadas107
+Cantidad de reservas aprobadas83
+
 Cantidad de reservas canceladas24
-Cantidad de reservas aprobadas111
-Cantidad de reservas canceladas25
-Cantidad de reservas aprobadas115
-Cantidad de reservas canceladas27
-Cantidad de reservas aprobadas117
-Cantidad de reservas canceladas27
-Cantidad de reservas aprobadas119
-Cantidad de reservas canceladas27
-Cantidad de reservas aprobadas125
+Cantidad de reservas aprobadas89
+
+Cantidad de reservas canceladas28
+Cantidad de reservas aprobadas93
+
+Cantidad de reservas canceladas29
+Cantidad de reservas aprobadas99
+
 Cantidad de reservas canceladas30
+Cantidad de reservas aprobadas106
+
+Cantidad de reservas canceladas30
+Cantidad de reservas aprobadas113
+
+Cantidad de reservas canceladas31
+Cantidad de reservas aprobadas120
+
+Cantidad de reservas canceladas34
+Cantidad de reservas aprobadas124
+
+Cantidad de reservas canceladas35
 Cantidad de reservas aprobadas131
-Cantidad de reservas canceladas31
-Cantidad de reservas aprobadas134
-Cantidad de reservas canceladas31
-Cantidad de reservas aprobadas139
-Cantidad de reservas canceladas31
-Cantidad de reservas aprobadas144
-Cantidad de reservas canceladas32
-Cantidad de reservas aprobadas148
-fin
+
+Cantidad de reservas canceladas38
+Cantidad de reservas aprobadas135
+
+Cantidad de reservas canceladas39
+Cantidad de reservas aprobadas142
+
+Cantidad de reservas canceladas: 41
+Cantidad de reservas aprobadas: 145
+Cantidad de reservas totales: 186
+tiempo total: 5s.

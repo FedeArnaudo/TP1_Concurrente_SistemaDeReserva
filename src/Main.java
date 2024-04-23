@@ -21,7 +21,6 @@ public class Main {
         Thread thread33 = new Thread(procesoDeCancelacionValidacion, "Thread 3-3");
         Thread thread41 = new Thread(procesoDeVerificacion, "Thread 4-1");
         Thread thread42 = new Thread(procesoDeVerificacion, "Thread 4-2");
-
         Thread threadLog = new Thread(log, "Thread Log");
 
         thread1.start();
@@ -34,7 +33,6 @@ public class Main {
         thread33.start();
         thread41.start();
         thread42.start();
-
         threadLog.start();
 
         long inicio = System.currentTimeMillis(); // Registrar el tiempo inicial

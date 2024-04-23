@@ -1,13 +1,13 @@
 import java.util.Random;
 
 public class MatrizDeAsientos {
-    private Asiento[][] matrizDeAsientos;
+    private final Asiento[][] matrizDeAsientos;
     private final int CANTIDAD_DE_FILAS = 31;
     private final int CANTIDAD_DE_COLUMNAS = 6;
     private final int CANTIDAD_MAX_ASIENTOS = 31 * 6;
     private int cantidadDeAsientosLibres;
 
-    private Random random;
+    private final Random random;
     public MatrizDeAsientos(){
         matrizDeAsientos = new Asiento[CANTIDAD_DE_FILAS][CANTIDAD_DE_COLUMNAS];
         cantidadDeAsientosLibres = CANTIDAD_MAX_ASIENTOS;
@@ -24,10 +24,6 @@ public class MatrizDeAsientos {
 
     public int getCANTIDAD_MAX_ASIENTOS() {
         return CANTIDAD_MAX_ASIENTOS;
-    }
-
-    public Asiento[][] getMatrizDeAsientos() {
-        return matrizDeAsientos;
     }
 
     public Asiento getAsientoRandom(){

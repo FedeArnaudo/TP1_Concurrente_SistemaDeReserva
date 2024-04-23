@@ -1,16 +1,18 @@
 import java.util.HashMap;
 
 public class ProcesoDePago implements Runnable{
-    private final Object locker = new Object();
     private final Vuelo vuelo;
     private final HashMap<String, Integer> registroDeHilos;
     private final int reservasPorHilo;
     private final float sleepTime;
+    private int contador;
+
     public ProcesoDePago(Vuelo vuelo){
         this.vuelo = vuelo;
         registroDeHilos = new HashMap<>();
         reservasPorHilo = vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 2;
-        sleepTime = (float) (10 * 1000) / reservasPorHilo;
+        sleepTime = (float) (5 * 1000) / reservasPorHilo;
+        contador = 1; // Eliminar
     }
 
     @Override
@@ -23,8 +25,7 @@ public class ProcesoDePago implements Runnable{
 
             Reserva reserva = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).getReserva();
 
-            if (reserva == null) continue;
-            if (reserva.getAsiento().getEstado().equals(ESTADO.OCUPADO)) { //Si fue tomada por un solo hilo del registero de Pendientes, que otro estado podria tener?
+            if (reserva != null) { //Si fue tomada por un solo hilo del registero de Pendientes, que otro estado podria tener?
                 if (reserva.getProbabilidadDePago()) {
                     pagar(reserva);
                 } else {
@@ -32,7 +33,7 @@ public class ProcesoDePago implements Runnable{
                 }
                 addReserva();
 
-                synchronized (locker){
+                /*synchronized (this){
                     String numeroAsiento = "";
                     if(reserva.getAsiento().getNumeroAsiento() < 10){
                         numeroAsiento = "00" + reserva.getAsiento().getNumeroAsiento();
@@ -44,12 +45,12 @@ public class ProcesoDePago implements Runnable{
                         numeroAsiento = "" + reserva.getAsiento().getNumeroAsiento();
                     }
                     System.out.println(Thread.currentThread().getName() + " - " +
+                            "" + contador + " - " +
                             "" + numeroAsiento +" - " +
                             "" + reserva.getAsiento().getEstado() + " - " +
                             "" + reserva.getProbabilidadDePago());
-                }
-
-                reserva.setAvailable(true);
+                    contador ++;
+                }*/
 
                 //  Algoritmo de sleep
                 fin = (long) (sleepTime - (System.currentTimeMillis() - inicio));

@@ -13,7 +13,6 @@ public class Reserva {
         this.asiento = asiento;
         available = true;
         checked = false;
-
     }
 
     public Asiento getAsiento() {
@@ -24,11 +23,11 @@ public class Reserva {
         this.asiento = asiento;
     }
 
-    public synchronized boolean isAvailable() {
+    public boolean isAvailable() {
         return available;
     }
 
-    public synchronized void setAvailable(boolean available) {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 

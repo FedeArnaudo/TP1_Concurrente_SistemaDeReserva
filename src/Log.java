@@ -3,27 +3,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Log implements Runnable {
-    private Vuelo vuelo;
-    private final int periodo = 200;
+    private final Vuelo vuelo;
+
     public Log(Vuelo vuelo){
         this.vuelo = vuelo;
     }
 
     @Override
     public void run() {
-        // Obtener la ubicación del directorio de trabajo actual
+        long inicio = 0L;
+        long fin = 0L;
+        inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
+
         String directorioActual = System.getProperty("user.dir");
 
-        // Definir el nombre del archivo
         String nombreArchivo = "log.txt";
 
-        // Crear una instancia de File para representar el archivo en el directorio actual
         File archivo = new File(directorioActual, nombreArchivo);
 
         try {
-            // Verificar si el archivo ya existe
             if (!archivo.exists()) {
-                // Crear el archivo si no existe
                 if (archivo.createNewFile()) {
                     System.out.println("Archivo creado: " + archivo.getAbsolutePath());
                 } else {
@@ -35,8 +34,6 @@ public class Log implements Runnable {
             System.out.println("Error al crear o escribir en el archivo: " + e.getMessage());
         }
 
-        int contador = 0;
-
         // Escribir en el archivo
         FileWriter escritor = null;
         try {
@@ -44,17 +41,17 @@ public class Log implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (isProcessActive()){
+        while (!isProcessActive()){
 
             try {
                 escritor.write("Cantidad de reservas canceladas" + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + "\n");
-                escritor.write("Cantidad de reservas aprobadas" + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize() + "\n");
-                contador++;
+                escritor.write("Cantidad de reservas aprobadas" + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize() + "\n\n");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
             try {
+                int periodo = 200;
                 Thread.sleep(periodo);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -62,7 +59,12 @@ public class Log implements Runnable {
         }
 
         try {
-            escritor.write("fin");
+            fin = (long) (System.currentTimeMillis() - inicio);
+            escritor.write("Cantidad de reservas canceladas: " + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + "\n");
+            escritor.write("Cantidad de reservas aprobadas: " + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize() + "\n");
+            escritor.write("Cantidad de reservas totales: " +
+                    "" + (vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize() + vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize()) + "\n");
+            escritor.write("tiempo total: " + (fin / 1000) + "s.");
             escritor.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -72,6 +74,6 @@ public class Log implements Runnable {
     public boolean isProcessActive() {
         int cantProcesadas = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).getSize();
         cantProcesadas += vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.VERIFICADAS).getSize();
-        return cantProcesadas < vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
+        return cantProcesadas == vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
     }
 }
