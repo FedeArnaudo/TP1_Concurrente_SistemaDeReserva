@@ -7,15 +7,12 @@
     <list default="true" id="d3239d54-4feb-47ac-aba9-402573def100" name="Changes" comment="Log">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BufferDeReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BufferDeReservas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Asiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Asiento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MatrizDeAsientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MatrizDeAsientos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDeCancelacionValidacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeCancelacionValidacion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDePago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDePago.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeReserva.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProcesoDeVerificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProcesoDeVerificacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegistroDeReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistroDeReservas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reserva.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

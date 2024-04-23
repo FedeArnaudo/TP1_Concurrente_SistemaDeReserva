@@ -2,24 +2,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProcesoDeCancelacionValidacion implements Runnable {
-    private final Object locker = new Object();
     private final Vuelo vuelo;
-    private long registroDeTiempo;
+    private float registroDeTiempo;
     private long sleepTime;
-    private int contador;
     public ProcesoDeCancelacionValidacion(Vuelo vuelo) {
         this.vuelo = vuelo;
         registroDeTiempo = 0;
-        sleepTime = 5 * 1000;
-        contador = 1;
+        sleepTime = 20 * 1000;
     }
 
     @Override
     public void run() {
+        long inicio = 0L;
+        long fin = 0L;
+        inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
         while (isProcessActive()){
-            long inicio = 0L;
-            long fin = 0L;
-            inicio = System.currentTimeMillis(); // Registrar el tiempo inicial
             Reserva reserva = vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CONFIRMADAS).getReserva();
 
             if(reserva != null && !reserva.isChecked()){
@@ -29,33 +26,33 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
                     validar(reserva);
                 }
 
-                /*
-                fin = System.currentTimeMillis() - inicio;
-                registrarTiempo(fin);
-                 */
-
-                synchronized (this){
-                    String numeroAsiento = "";
-                    if(reserva.getAsiento().getNumeroAsiento() < 10){
-                        numeroAsiento = "00" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    else if(reserva.getAsiento().getNumeroAsiento() < 100){
-                        numeroAsiento = "0" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    else {
-                        numeroAsiento = "" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    System.out.println(Thread.currentThread().getName() + " - " +
-                            "" + contador + " - " +
-                            "" + numeroAsiento +" - " +
-                            "" + reserva.getAsiento().getEstado() + " - " +
-                            "" + reserva.getProbabilidadDePago() + " - " +
-                            "" + reserva.getProbabilidadDeCancelacion() + " - " + reserva.isChecked());
-                    contador ++;
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+
+                //fin = System.currentTimeMillis() - inicio;
+                //registrarTiempo((long)fin);
             }
             else if(reserva != null && reserva.isChecked()){
                 reserva.setAvailable(true);
+            }
+        }
+
+        fin = System.currentTimeMillis() - inicio;
+
+        /*if(Thread.currentThread().getName().equals("Thread 3-1")) {
+            System.out.println("Tiempo acumulado 3: " + (float)(getRegistroDeTiempo() / 3));
+            sleepTime -= (getRegistroDeTiempo() / 3);
+        }*/
+        System.out.println("" + Thread.currentThread().getName() + ": " + fin);
+        if ((sleepTime - fin) > 0) {
+            sleepTime -= fin;
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -76,15 +73,14 @@ public class ProcesoDeCancelacionValidacion implements Runnable {
         return cantProcesadas < vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS();
     }
 
-    /*
-    public void registrarTiempo(long tiempo){
-        if(Thread.currentThread().getName() == "Thread 3-1") {
+    private void registrarTiempo(long tiempo){
+        synchronized (this){
             registroDeTiempo += tiempo;
         }
     }
 
-    public long getRegistroDeTiempo() {
+    private float getRegistroDeTiempo() {
         return registroDeTiempo;
-    }*/
+    }
 }
 

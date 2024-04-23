@@ -1,9 +1,7 @@
 public class Asiento {
     private ESTADO estado;
-    private int numeroAsiento;
+    private final int numeroAsiento;
     private String idThread;
-    public Asiento(){
-    }
     public Asiento(int numeroAsiento, ESTADO estado){
         this.numeroAsiento = numeroAsiento;
         this.estado = estado;
@@ -17,15 +15,9 @@ public class Asiento {
     public synchronized void setEstado(ESTADO estado) {
         this.estado = estado;
     }
-
     public int getNumeroAsiento() {
         return numeroAsiento;
     }
-
-    public void setNumeroAsiento(int numeroAsiento) {
-        this.numeroAsiento = numeroAsiento;
-    }
-
     public String getIdThread() {
         return idThread;
     }

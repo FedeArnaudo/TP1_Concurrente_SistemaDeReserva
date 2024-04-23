@@ -11,7 +11,7 @@ public class ProcesoDeReserva implements Runnable{
         this.vuelo = vuelo;
         registroDeHilos = new HashMap<>();
         asientosPorHilo = (vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 3);
-        sleepTime = (float) ((5 * 1000.0 ) / asientosPorHilo);   // tiempo (s) * 1000ms / cantidadDeHilos
+        sleepTime = (float) ((10 * 1000.0 ) / asientosPorHilo);   // tiempo (s) * 1000ms / cantidadDeHilos
         contador = 1; // Eliminar
     }
 
@@ -26,25 +26,6 @@ public class ProcesoDeReserva implements Runnable{
             Asiento asiento = vuelo.getMatrizDeAsientos().getAsientoRandom();
             if(asiento != null && asiento.getEstado().equals(ESTADO.LIBRE)){
                 reservar(asiento);
-
-                /*synchronized (this){
-                    String numeroAsiento = "";
-                    if(asiento.getNumeroAsiento() < 10){
-                        numeroAsiento = "00" + asiento.getNumeroAsiento();
-                    }
-                    else if(asiento.getNumeroAsiento() < 100){
-                        numeroAsiento = "0" + asiento.getNumeroAsiento();
-                    }
-                    else {
-                        numeroAsiento = "" + asiento.getNumeroAsiento();
-                    }
-                    System.out.println(Thread.currentThread().getName() + " - " +
-                            "" + contador + " - " +
-                            "" + numeroAsiento +" - " +
-                            "" + asiento.getEstado());
-                    contador ++;
-                }*/
-
                 asiento.setIdThread(null); // Libero el asiento del hilo
 
                 //  Algoritmo de sleep
@@ -65,7 +46,7 @@ public class ProcesoDeReserva implements Runnable{
         vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.PENDIENTE_DE_PAGO).addReserva(new Reserva(asiento));
         addReserva();
     }
-    public void addReserva() {
+    private void addReserva() {
         synchronized (this){
             String nameThread = "" + Thread.currentThread().getName();
             int numeroDeReserva = 0;
@@ -78,7 +59,7 @@ public class ProcesoDeReserva implements Runnable{
             }
         }
     }
-    public Integer reservasPorHilo(String idThread){
+    private Integer reservasPorHilo(String idThread){
         synchronized (this){
             return registroDeHilos.get(idThread);
         }

@@ -5,7 +5,6 @@ public class Reserva {
     private boolean available;
     private boolean checked;
     private final Random random = new Random();
-
     private final double probabilidadDePago = random.nextDouble() * 100;
     private final double probabilidadDeCancelacion = random.nextDouble() * 100;
 
@@ -17,10 +16,6 @@ public class Reserva {
 
     public Asiento getAsiento() {
         return asiento;
-    }
-
-    public void setAsiento(Asiento asiento) {
-        this.asiento = asiento;
     }
 
     public boolean isAvailable() {

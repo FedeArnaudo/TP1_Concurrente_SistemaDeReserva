@@ -11,7 +11,7 @@ public class ProcesoDePago implements Runnable{
         this.vuelo = vuelo;
         registroDeHilos = new HashMap<>();
         reservasPorHilo = vuelo.getMatrizDeAsientos().getCANTIDAD_MAX_ASIENTOS() / 2;
-        sleepTime = (float) (5 * 1000) / reservasPorHilo;
+        sleepTime = (float) (15 * 1000) / reservasPorHilo;
         contador = 1; // Eliminar
     }
 
@@ -32,25 +32,6 @@ public class ProcesoDePago implements Runnable{
                     cancelar(reserva);
                 }
                 addReserva();
-
-                /*synchronized (this){
-                    String numeroAsiento = "";
-                    if(reserva.getAsiento().getNumeroAsiento() < 10){
-                        numeroAsiento = "00" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    else if(reserva.getAsiento().getNumeroAsiento() < 100){
-                        numeroAsiento = "0" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    else {
-                        numeroAsiento = "" + reserva.getAsiento().getNumeroAsiento();
-                    }
-                    System.out.println(Thread.currentThread().getName() + " - " +
-                            "" + contador + " - " +
-                            "" + numeroAsiento +" - " +
-                            "" + reserva.getAsiento().getEstado() + " - " +
-                            "" + reserva.getProbabilidadDePago());
-                    contador ++;
-                }*/
 
                 //  Algoritmo de sleep
                 fin = (long) (sleepTime - (System.currentTimeMillis() - inicio));
@@ -76,13 +57,13 @@ public class ProcesoDePago implements Runnable{
         vuelo.getRegistroDeReservas().getBufferDeReservas(TIPO_DE_RESERVA.CANCELADAS).addReserva(reserva);
     }
 
-    public Integer reservasPorHilo(String idThread){
+    private Integer reservasPorHilo(String idThread){
         synchronized (this){
             return registroDeHilos.get(idThread);
         }
     }
 
-    public void addReserva() {
+    private void addReserva() {
         synchronized (this){
             String nameThread = "" + Thread.currentThread().getName();
             int numeroDeReserva = 0;
